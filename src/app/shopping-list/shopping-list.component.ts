@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingListService } from './shopping-list.service';
+import {ShoppingListAddComponent} from './shopping-list-add.component';
 
 import { Ingredient } from "../shared/ingredient";
 
