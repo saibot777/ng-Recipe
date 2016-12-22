@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { RouterModule, Routes, Router  } from '@angular/router';
+import { appRoutes } from '../../app.routes';
 import { Recipe } from '../recipe';
 
 @Component({
@@ -8,7 +10,7 @@ import { Recipe } from '../recipe';
 export class RecipeItemComponent implements OnInit {
 
 	@Input() recipe: Recipe;
-	recipeId: number;
+	recipeId: number = 1;
 
   constructor() { }
 

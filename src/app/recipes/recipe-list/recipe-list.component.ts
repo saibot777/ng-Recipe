@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { RouterModule, Routes, Router  } from '@angular/router';
+import { appRoutes } from '../../app.routes';
 import { Recipe } from '../recipe';
 import { RecipeItemComponent } from './recipe-item.component';
 import { RecipeService } from '../recipe.service';
