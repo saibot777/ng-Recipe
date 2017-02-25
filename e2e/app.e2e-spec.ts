@@ -1,10 +1,10 @@
-import { NgRecipePage } from './app.po';
+import { NgRecipPage } from './app.po';
 
-describe('ng-recipe App', function() {
-  let page: NgRecipePage;
+describe('ng-recip App', function() {
+  let page: NgRecipPage;
 
   beforeEach(() => {
-    page = new NgRecipePage();
+    page = new NgRecipPage();
   });
 
   it('should display message saying app works', () => {
