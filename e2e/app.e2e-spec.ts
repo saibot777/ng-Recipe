@@ -1,10 +1,10 @@
-import { NgRecipPage } from './app.po';
+import { NewCliPage } from './app.po';
 
-describe('ng-recip App', function() {
-  let page: NgRecipPage;
+describe('new-cli App', () => {
+  let page: NewCliPage;
 
   beforeEach(() => {
-    page = new NgRecipPage();
+    page = new NewCliPage();
   });
 
   it('should display message saying app works', () => {

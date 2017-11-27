@@ -1,61 +1,63 @@
-import {Injectable, EventEmitter} from '@angular/core';
-import 'rxjs/Rx';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
-import { Recipe } from './recipe';
-import { Ingredient } from '../shared/ingredient';
-import {Headers, Http, Response} from "@angular/http";
+import { Recipe } from './recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class RecipeService {
-  recipesChanged = new EventEmitter<Recipe[]>();
+  recipesChanged = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
-    new Recipe('Schnitzel', 'Very tasty', 'https://s-media-cache-ak0.pinimg.com/originals/21/20/39/2120396bc0021050b79169cb873c533c.jpg', [
-      new Ingredient('French Fries', 2),
-      new Ingredient('Pork Meat', 1)
-    ]),
-    new Recipe('Summer Salad', 'Okayish', 'http://ohmyveggies.com/wp-content/uploads/2013/06/the_perfect_summer_salad.jpg', [])
+    new Recipe(
+      'Tasty Schnitzel',
+      'A super-tasty Schnitzel - just awesome!',
+      'https://upload.wikimedia.org/wikipedia/commons/7/72/Schnitzel.JPG',
+      [
+        new Ingredient('Meat', 1),
+        new Ingredient('French Fries', 20)
+      ]),
+    new Recipe('Big Fat Burger',
+      'What else you need to say?',
+      'https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg',
+      [
+        new Ingredient('Buns', 2),
+        new Ingredient('Meat', 1)
+      ])
   ];
 
-  constructor(private http: Http) { }
+  constructor(private slService: ShoppingListService) {}
+
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
   getRecipes() {
-    return this.recipes;
+    return this.recipes.slice();
   }
 
-  getRecipe(id: number) {
-    return this.recipes[id];
+  getRecipe(index: number) {
+    return this.recipes[index];
   }
 
-  deleteRecipe(recipe: Recipe) {
-    this.recipes.splice(this.recipes.indexOf(recipe), 1);
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.slService.addIngredients(ingredients);
   }
 
   addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
   }
 
-  editRecipe(oldRecipe: Recipe, newRecipe: Recipe) {
-    this.recipes[this.recipes.indexOf(oldRecipe)] = newRecipe;
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
   }
 
-  storeData() {
-    const body = JSON.stringify(this.recipes);
-    const headers = new Headers({
-      'Content-Type': 'application/json'
-    });
-    return this.http.put('https://recipebook-1e31e.firebaseio.com/recipes.json', body, {headers: headers});
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
   }
-
-  fetchData() {
-    return this.http.get('https://recipebook-1e31e.firebaseio.com/recipes.json')
-      .map((response: Response) => response.json())
-      .subscribe(
-        (data: Recipe[]) => {
-          this.recipes = data;
-          this.recipesChanged.emit(this.recipes);
-        }
-      );
-  }
-
 }

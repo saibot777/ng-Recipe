@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class NgRecipPage {
+export class NewCliPage {
   navigateTo() {
     return browser.get('/');
   }
