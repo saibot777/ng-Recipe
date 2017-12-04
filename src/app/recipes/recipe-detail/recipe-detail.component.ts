@@ -5,13 +5,13 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import * as ShoppingListActions from '../../shopping-list/store/shopping-list.actions';
-import { Ingredient } from '../../shared/ingredient.model';
+import * as fromShoppingList from '../../shopping-list/store/shopping-list.reducers';
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
-})
+}) 
 export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
@@ -19,7 +19,7 @@ export class RecipeDetailComponent implements OnInit {
   constructor(private recipeService: RecipeService,
               private route: ActivatedRoute,
               private router: Router,
-              private store: Store<{shoppingList: {ingredients: Ingredient[]}}>) {
+              private store: Store<fromShoppingList.AppState>) {
   }
 
   ngOnInit() {
