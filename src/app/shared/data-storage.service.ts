@@ -13,17 +13,4 @@ export class DataStorageService {
               private authService: AuthService) {
   }
 
-  storeRecipes() {
-    // const headers = new HttpHeaders().set('Authorization', 'Bearer afdklasflaldf');
-
-    // return this.httpClient.put('https://ng-recipe-book-3adbb.firebaseio.com/recipes.json', this.recipeService.getRecipes(), {
-    //   observe: 'body',
-    //   params: new HttpParams().set('auth', token)
-    //   // headers: headers
-    // });
-    const req = new HttpRequest('PUT', 'https://recipesng.firebaseio.com/recipesng.json',
-      this.recipeService.getRecipes(), {reportProgress: true});
-        return this.httpClient.request(req);
-  }
-
 }
