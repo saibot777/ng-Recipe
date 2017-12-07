@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import * as firebase from 'firebase';
+import 'rxjs/add/operator/mergeMap';
 
 @Injectable()
 export class AuthEffects {

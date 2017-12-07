@@ -5,6 +5,8 @@ import {Store} from "@ngrx/store";
 import * as RecipeActions from '../store/recipe.actions';
 import {Recipe} from "../recipe.model";
 import * as fromRecipe from '../store/recipe.reducer';
+import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/switchMap';
 
 
 @Injectable()
